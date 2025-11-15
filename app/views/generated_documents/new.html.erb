@@ -1,0 +1,11 @@
+<% content_for :title, "New generated document" %>
+
+<h1>New  Document</h1>
+
+<%= render "form", generated_document: @generated_document %>
+
+<br>
+
+<div>
+  <%= link_to "Back to generated documents", generated_documents_path %>
+</div>

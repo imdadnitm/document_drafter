@@ -1,0 +1,36 @@
+<%= form_with(model: template, data:{controller:"placeholders"}, html: {multipart: true}) do |form| %>
+  <% if template.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(template.errors.count, "error") %> prohibited this template from being saved:</h2>
+
+      <ul>
+        <% template.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name, style: "display: block" %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div>
+    <%= form.label :placeholders, style: "display: block" %>
+    <%= form.text_field :placeholders, readonly:true, data:{placeholders_target:"placeholder"} %>
+  </div>
+
+  <div>
+    <%= form.label :template_document, style: "display: block" %>
+    <%= form.file_field :template_document, data:{placeholders_target:"file", action:"change->placeholders#extract_placeholders"} %>
+    <% if template.template_document.attached? %>
+      <p>Current template document: <%= link_to template.template_document.filename, rails_blob_path(template.template_document, disposition: "attachment"), target: "_blank" %></p>
+    <%end%>
+  </div>
+
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

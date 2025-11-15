@@ -1,0 +1,21 @@
+<div id="<%= dom_id template %>">
+  <p>
+    <strong>Name:</strong>
+    <%= template.name %>
+  </p>
+
+  <p>
+    <strong>Placeholders:</strong>
+    <%= template.placeholders %>
+  </p>
+
+  <p>
+    <strong>Template Document</strong>
+    <% if template.template_document.attached? %>
+      <%= link_to template.template_document.filename, rails_blob_path(template.template_document, disposition: "inline"), target: "_blank"%>
+    <%else%>
+      <%= "No document has been attached yet"%>
+    <% end%>
+  </p>
+
+</div>

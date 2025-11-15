@@ -1,0 +1,10 @@
+<turbo-frame id="placeholder_input_frame">
+    <% template_placeholders.each do |field, type| %>
+       <div>
+          <label><%= field.humanize %></label>
+          <input type="<%= type == "decimal" ? "number" : "text" %>" 
+                 name="generated_document[placeholder_inputs][<%= field %>]" 
+                 value = <%= input_values&.[](field) %>>
+       </div>
+    <% end %>
+</turbo-frame>

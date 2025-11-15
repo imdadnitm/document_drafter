@@ -1,0 +1,12 @@
+<% content_for :title, "Editing generated document" %>
+
+<h1>Editing generated document</h1>
+
+<%= render "form", generated_document: @generated_document %>
+
+<br>
+
+<div>
+  <%= link_to "Show this generated document", @generated_document %> |
+  <%= link_to "Back to generated documents", generated_documents_path %>
+</div>

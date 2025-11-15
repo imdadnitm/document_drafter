@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @generated_document %>
+
+<div>
+  <%= link_to "Edit this generated document", edit_generated_document_path(@generated_document) %> |
+  <%= link_to "Back to generated documents", generated_documents_path %>
+
+  <%= button_to "Destroy this generated document", @generated_document, method: :delete %>
+</div>

@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Generated documents" %>
+
+<h1>Generated documents</h1>
+
+<div id="generated_documents">
+  <% @generated_documents.each do |generated_document| %>
+    <%= render generated_document %>
+    <p>
+      <%= link_to "Show this generated document", generated_document %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New generated document", new_generated_document_path %>
