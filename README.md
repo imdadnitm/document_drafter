@@ -1,24 +1,13 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Install RoR to run this app localy. Will add more detailed steps later when the project is complete.
 
-Things you may want to cover:
+The idea is -
 
-* Ruby version
+User would upload a word doc template with placeholders in it. The placeholders would be in the format {{data_type#field_name}}
+Then the users would be able to generate a new document using these uploaded templates. The form for generating the documents would show these
+placeholders/ field names in readable format dynamically ( based on the seletion of the template ) without needing the user to configure anything else in the application.
 
-* System dependencies
+The user can fill the details in the placeholder field names when displayed and click generate document.
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+More features to come as well.
