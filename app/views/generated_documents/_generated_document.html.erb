@@ -14,4 +14,10 @@
     <%= generated_document.template_id %>
   </p>
 
+  <p>
+  <% if @generated_document&.file&.attached? %>
+     <p> <strong>Generated file/document :</strong> <%= link_to @generated_document.file.filename, rails_blob_path(@generated_document.file, disposition: "attachment"), target: "_blank" %></p>
+    <% end %>
+  </p>
+
 </div>

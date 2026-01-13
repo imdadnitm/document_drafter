@@ -28,6 +28,12 @@
   </turbo-frame>
 
   <div>
+    <% if @generated_document.file.attached? %>
+     <p> Generated file/document : <%= link_to @generated_document.file.filename, rails_blob_path(@generated_document.file, disposition: "attachment"), target: "_blank" %></p>
+    <% end %>
+  </div>
+
+  <div>
     <%= form.submit %>
   </div>
 <% end %>
