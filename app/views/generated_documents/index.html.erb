@@ -5,12 +5,18 @@
 <h1>Generated documents</h1>
 
 <div id="generated_documents">
-  <% @generated_documents.each do |generated_document| %>
-    <%= render generated_document %>
-    <p>
-      <%= link_to "Show this generated document", generated_document %>
-    </p>
-  <% end %>
+  <ol>
+    <% @generated_documents.each do |generated_document| %>
+      <%#= render generated_document %>
+      <li> <%= link_to "#{generated_document.name}", generated_document %> </li>
+    <% end %>
+  </ol>
 </div>
 
-<%= link_to "New generated document", new_generated_document_path %>
+<br><br>
+<%= link_to "New generated document", new_generated_document_path %> <br/>
+
+<%= link_to "Add New Template", new_template_path %> <br/>
+
+<%= link_to "Go to Templates", templates_path %>
+
