@@ -5,12 +5,14 @@
 <h1>Templates</h1>
 
 <div id="templates">
-  <% @templates.each do |template| %>
-    <%= render template %>
-    <p>
-      <%= link_to "Show this template", template %>
-    </p>
-  <% end %>
+  <ol>
+    <% @templates.each do |template| %>
+      <%#= render template %>
+      <li> <%= link_to "#{template.name}", template %> </li>
+    <% end %>
+  </ol>
 </div>
 
-<%= link_to "New template", new_template_path %>
+<%= link_to "Add New template", new_template_path %> <br>
+<%= link_to "Go to Generated Documents", generated_documents_path %> <br>
+<%= link_to "Generate a new Document", new_generated_document_path %>
