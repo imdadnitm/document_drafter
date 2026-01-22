@@ -1,5 +1,5 @@
 class TemplatesController < ApplicationController
-  require 'docx'
+  #require 'docx'
   before_action :set_template, only: %i[ show edit update destroy ]
 
   # GET /templates or /templates.json
@@ -60,33 +60,7 @@ class TemplatesController < ApplicationController
 
   def extract_placeholders
     uploaded_file = params[:template_document]
-    unless uploaded_file&.content_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-      render json: { error: 'Invalid file type' }, status: :unprocessable_entity and return
-    end
-
-    placeholders = {}
-    
-    doc = Docx::Document.open(uploaded_file.path)
-
-    
-    full_text = doc.paragraphs.map(&:text).join(" ")
-
-    puts "Full text #{full_text}"
-    scanned_placeholders =  full_text&.scan(/\{\{(.*?)\}\}/).flatten
-
-    scanned_placeholders.each do |placeholder|
-      if placeholder.include?("#")
-        data_type, field_name = placeholder.split("#",2)
-        placeholders[field_name.strip] = data_type.strip
-      end
-    end
-
-    puts "Placeholders : #{placeholders}"
-
-    render json:{placeholders: placeholders}
-
-  rescue => e
-    render json: {error: e.message}, status: :internal_server_error
+    ExtractPlaceholders.perform_async(uploaded_file)
   end
 
 
