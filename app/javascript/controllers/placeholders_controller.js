@@ -5,8 +5,8 @@ export default class extends Controller{
     static targets = ["file","placeholder","selected_template"]
 
     async extract_placeholders() {
-        alert("Change occurred")
-        const uploaded_file = this.fileTarget.files[0]
+        alert("Template File Uploaded")
+        /* const uploaded_file = this.fileTarget.files[0]
         if(!uploaded_file)
             return
         
@@ -26,12 +26,12 @@ export default class extends Controller{
 
         alert(data.placeholders)
 
-        this.placeholderTarget.value = JSON.stringify(data.placeholders)
+        this.placeholderTarget.value = JSON.stringify(data.placeholders)*/
     }
 
     async render_placeholders(){
 
-        alert("change occurred")
+        alert("Template selected. Rendering placeholder fields...")
 
         const template_id = this.selected_templateTarget.value
 
