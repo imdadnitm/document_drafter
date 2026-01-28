@@ -9,7 +9,8 @@ class ExtractPlaceholders
     document_blob = template.template_document.blob
     document_blob.open do |uploaded_file|
       unless document_blob&.content_type == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
-        render json: { error: 'Invalid file type' }, status: :unprocessable_entity and return
+        #render json: { error: 'Invalid file type' }, status: :unprocessable_entity and return
+        template.update_column(:placeholders, {"error" => 'Invalid file type'}.to_json) and return
       end
       
       doc = Docx::Document.open(uploaded_file.path)
