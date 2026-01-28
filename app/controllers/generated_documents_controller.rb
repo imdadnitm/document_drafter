@@ -24,8 +24,6 @@ class GeneratedDocumentsController < ApplicationController
     @generated_document = GeneratedDocument.new(generated_document_params)
     puts "#####Parameters: #{generated_document_params}"
     @generated_document.placeholder_inputs = generated_document_params["placeholder_inputs"].to_json
-    @generated_document.generate_the_document(generated_document_params["template_id"])
-
     respond_to do |format|
       if @generated_document.save
         format.html { redirect_to @generated_document, notice: "Generated document was successfully created." }
