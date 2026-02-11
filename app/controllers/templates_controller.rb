@@ -4,7 +4,7 @@ class TemplatesController < ApplicationController
 
   # GET /templates or /templates.json
   def index
-    @templates = Template.all
+    @templates = Template.all.for_user(current_user)
   end
 
   # GET /templates/1 or /templates/1.json
@@ -67,7 +67,11 @@ class TemplatesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_template
-      @template = Template.find(params.expect(:id))
+      begin
+       @template = Template.for_user(current_user).find(params.expect(:id))
+      rescue => e
+        render json: {error: e.message}, status: :not_found
+      end
     end
 
     # Only allow a list of trusted parameters through.

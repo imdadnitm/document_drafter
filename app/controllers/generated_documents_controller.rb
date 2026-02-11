@@ -3,7 +3,7 @@ class GeneratedDocumentsController < ApplicationController
 
   # GET /generated_documents or /generated_documents.json
   def index
-    @generated_documents = GeneratedDocument.all
+    @generated_documents = GeneratedDocument.all.for_user(current_user)
   end
 
   # GET /generated_documents/1 or /generated_documents/1.json
@@ -70,7 +70,11 @@ class GeneratedDocumentsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_generated_document
-      @generated_document = GeneratedDocument.find(params.expect(:id))
+      begin
+       @generated_document = GeneratedDocument.for_user(current_user).find(params.expect(:id))
+      rescue => e
+        render json: {error: e.message}, status: :not_found
+      end
     end
 
     # Only allow a list of trusted parameters through.
