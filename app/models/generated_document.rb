@@ -2,6 +2,9 @@ require 'docx'
 class GeneratedDocument < ApplicationRecord
   belongs_to :template
   has_one_attached :file
+  belongs_to :user
+
+  scope :for_user, -> (user) {where("user_id = ?", user.id)}
 
   after_commit :trigger_generate_docx_job, on: [:create]
 
