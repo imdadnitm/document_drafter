@@ -1,0 +1,3 @@
+<%= turbo_stream.append "gen_doc_tbody",
+                        partial: "generated_documents/row",
+                        locals: {generated_document: @generated_document}%>
