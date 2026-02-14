@@ -1,22 +1,90 @@
+<turbo-frame id="index">
+
 <p style="color: green"><%= notice %></p>
 
 <% content_for :title, "Generated documents" %>
 
-<h1>Generated documents</h1>
+<div class="flex px-5 py-5">
 
-<div id="generated_documents">
-  <ol>
-    <% @generated_documents.each do |generated_document| %>
-      <%#= render generated_document %>
-      <li> <%= link_to "#{generated_document.name}", generated_document %> </li>
-    <% end %>
-  </ol>
+<div class="max-w-6xl mx-auto bg-white rounded-2xl shadow">
+
+    <!-- Header -->
+    <div class="p-6 border-b">
+      <h1 class="text-xl font-semibold">Generated Documents</h1>
+    </div>
+
+    <!-- Table -->
+    <div class="overflow-auto">
+
+      <table id="dataTable" class="w-full text-sm text-left">
+
+        <!-- Header row -->
+        <thead class="bg-gray-100 sticky top-0">
+
+          <!-- Column names -->
+          <tr class="text-gray-700">
+            <th class="px-4 py-3">Created at</th>
+            <th class="px-4 py-3">Id</th>
+            <th class="px-4 py-3">Name</th>
+            <th class="px-4 py-3">Template</th>
+            <th class="px-4 py-3">Updated at</th>
+          </tr>
+
+          <!-- Filter inputs -->
+          <tr class="bg-gray-50">
+            <th class="p-2">
+              <input data-col="0"
+                     placeholder="Filter"
+                     class="w-full border rounded px-2 py-1 text-xs filter-input" />
+            </th>
+
+            <th class="p-2">
+              <input data-col="1"
+                     placeholder="Filter"
+                     class="w-full border rounded px-2 py-1 text-xs filter-input" />
+            </th>
+
+            <th class="p-2">
+              <input data-col="2"
+                     placeholder="Filter"
+                     class="w-full border rounded px-2 py-1 text-xs filter-input" />
+            </th>
+
+            <th class="p-2">
+              <input data-col="3"
+                     placeholder="Filter"
+                     class="w-full border rounded px-2 py-1 text-xs filter-input" />
+            </th>
+
+            <th class="p-2">
+              <input data-col="4"
+                     placeholder="Filter"
+                     class="w-full border rounded px-2 py-1 text-xs filter-input" />
+            </th>
+          </tr>
+        </thead>
+
+        <!-- Data -->
+        <tbody class="divide-y">
+
+          <% @generated_documents.each do |generated_document| %>
+
+          <tr class="hover:bg-gray-50">
+            <td class="px-4 py-3"><%= generated_document.created_at %></td>
+            <td class="px-4 py-3"><%= generated_document.id%> </td>
+            <td class="px-4 py-3 text-sky-600 hover:underline"><%= link_to generated_document.name, generated_document, data:{turbo_frame: "_top"} %></td>
+            <td class="px-4 py-3"><%= generated_document.template.name%></td>
+            <td class="px-4 py-3"><%= generated_document.updated_at%></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+<%= button_to "New generated document", new_generated_document_path, method: :get, class: "px-5 mx-25", data:{turbo_frame: "_top"} %>
 </div>
 
-<br><br>
-<%= link_to "New generated document", new_generated_document_path %> <br/>
-
-<%= link_to "Add New Template", new_template_path %> <br/>
-
-<%= link_to "Go to Templates", templates_path %>
+</turbo-frame>
 
