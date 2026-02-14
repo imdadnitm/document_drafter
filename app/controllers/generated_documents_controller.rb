@@ -22,10 +22,12 @@ class GeneratedDocumentsController < ApplicationController
   # POST /generated_documents or /generated_documents.json
   def create
     @generated_document = GeneratedDocument.new(generated_document_params)
+    @generated_document.user_id = current_user.id
     puts "#####Parameters: #{generated_document_params}"
     @generated_document.placeholder_inputs = generated_document_params["placeholder_inputs"].to_json
     respond_to do |format|
       if @generated_document.save
+        format.turbo_stream
         format.html { redirect_to @generated_document, notice: "Generated document was successfully created." }
         format.json { render :show, status: :created, location: @generated_document }
       else
@@ -39,6 +41,7 @@ class GeneratedDocumentsController < ApplicationController
   def update
     respond_to do |format|
       if @generated_document.update(generated_document_params)
+        format.turbo_stream
         format.html { redirect_to @generated_document, notice: "Generated document was successfully updated.", status: :see_other }
         format.json { render :show, status: :ok, location: @generated_document }
       else
