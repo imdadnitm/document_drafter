@@ -1,10 +1,7 @@
 <turbo-frame id="generated_document">
-<p style="color: green"><%= notice %></p>
-
-<%= render @generated_document %>
-
-<div>
-  <%= button_to "Edit", edit_generated_document_path(@generated_document), method: :get, data:{turbo_action: "replace"} %>
-  <%= button_to "Destroy", @generated_document, method: :delete, data:{turbo_frame: "_top"}%>
-</div>
+  <%= render @generated_document %>
+  <div>
+    <%= button_to "Edit", edit_generated_document_path(@generated_document), method: :get, data:{turbo_action: "replace"} %>
+    <%= button_to "Destroy", @generated_document, method: :delete, data:{turbo_frame: "_top"}%>
+  </div>
 </turbo-fame>
