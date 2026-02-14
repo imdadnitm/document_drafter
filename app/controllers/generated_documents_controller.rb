@@ -43,7 +43,7 @@ class GeneratedDocumentsController < ApplicationController
       param_attributes = generated_document_params
       param_attributes["placeholder_inputs"] = param_attributes["placeholder_inputs"].to_json
       if @generated_document.update(param_attributes)
-        format.turbo_stream
+        #format.turbo_stream
         format.html { redirect_to @generated_document, notice: "Generated document was successfully updated.", status: :see_other }
         format.json { render :show, status: :ok, location: @generated_document }
       else
