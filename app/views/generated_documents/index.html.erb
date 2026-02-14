@@ -65,11 +65,11 @@
         </thead>
 
         <!-- Data -->
-        <tbody class="divide-y">
+        <tbody id="gen_doc_tbody" class="divide-y">
 
           <% @generated_documents.each do |generated_document| %>
 
-          <tr class="hover:bg-gray-50">
+          <tr id=<%=dom_id(generated_document)%> class="hover:bg-gray-50">
             <td class="px-4 py-3"><%= generated_document.created_at %></td>
             <td class="px-4 py-3"><%= generated_document.id%> </td>
             <td class="px-4 py-3 text-sky-600 hover:underline"><%= link_to generated_document.name, generated_document, data:{turbo_frame: "_top"} %></td>
