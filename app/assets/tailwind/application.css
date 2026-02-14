@@ -3,4 +3,7 @@
   input, button {
     @apply border rounded px-2 py-1;
   }
+  button{
+    @apply bg-blue-400 text-white;
+  }
 }
