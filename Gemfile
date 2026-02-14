@@ -67,3 +67,5 @@ gem "devise", "~> 4.9"
 gem "docx", "~> 0.10.0"
 
 gem "sidekiq"
+
+gem "tailwindcss-rails", "~> 4.4"
