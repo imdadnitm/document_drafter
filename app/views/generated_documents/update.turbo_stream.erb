@@ -1,0 +1,3 @@
+<%= turbo_stream.replace dom_id(@generated_document),
+                  partial: "generated_documents/row",
+                  locals: {generated_document: @generated_document} %>
