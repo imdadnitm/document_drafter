@@ -1,18 +1,20 @@
-<p style="color: green"><%= notice %></p>
-
-<% content_for :title, "Templates" %>
-
-<h1>Templates</h1>
-
-<div id="templates">
-  <ol>
-    <% @templates.each do |template| %>
-      <%#= render template %>
-      <li> <%= link_to "#{template.name}", template %> </li>
-    <% end %>
-  </ol>
-</div>
-
-<%= link_to "Add New template", new_template_path %> <br>
-<%= link_to "Go to Generated Documents", generated_documents_path %> <br>
-<%= link_to "Generate a new Document", new_generated_document_path %>
+<turbo-frame id="index">
+    <p style="color: green"><%= notice %></p>
+    
+    <% content_for :title, "Templates" %>
+    
+    <h1>Templates</h1>
+    
+    <div id="templates">
+      <ol>
+        <% @templates.each do |template| %>
+          <%#= render template %>
+          <li> <%= link_to "#{template.name}", template %> </li>
+        <% end %>
+      </ol>
+    </div>
+    
+    <%= link_to "Add New template", new_template_path %> <br>
+    <%= link_to "Go to Generated Documents", generated_documents_path %> <br>
+    <%= link_to "Generate a new Document", new_generated_document_path %>
+</turbo-frame>
