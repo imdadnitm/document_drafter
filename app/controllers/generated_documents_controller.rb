@@ -58,7 +58,7 @@ class GeneratedDocumentsController < ApplicationController
     @generated_document.destroy!
 
     respond_to do |format|
-      format.html { redirect_to generated_documents_path, notice: "Generated document was successfully destroyed.", status: :see_other, turbo: {action:"replace"}}
+      format.html { render :deleted, status: :see_other}
       format.json { head :no_content }
     end
   end
