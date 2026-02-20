@@ -1,5 +1,5 @@
 <turbo-frame id="index" class="block">
-  <% content_for :title, "Generated documents" %>
+  <% content_for :title, "Generated Documents" %>
 
   <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8">
     
@@ -35,13 +35,13 @@
           <tbody id="gen_doc_tbody" class="divide-y divide-gray-100">
             <% @generated_documents.each do |doc| %>
               <tr id="<%= dom_id(doc) %>" class="hover:bg-indigo-50/30 transition-colors">
-                <td class="px-6 py-4 whitespace-nowrap text-gray-500"><%= doc.created_at.strftime("%b %d, %Y - %H:%M:%S") %></td>
+                <td class="px-6 py-4 whitespace-nowrap text-gray-500"><%= doc.created_at.strftime("%b %d, %Y  %H:%M") %></td>
                 <td class="px-6 py-4 font-mono text-xs text-gray-400">#<%= doc.id %></td>
                 <td class="px-6 py-4">
                   <%= link_to doc.name, doc, data: { turbo_frame: "_top" }, class: "font-medium text-indigo-600 hover:text-indigo-900" %>
                 </td>
                 <td class="px-6 py-4 text-gray-600"><%= doc.template.name %></td>
-                <td class="px-6 py-4 text-gray-400"><%= (doc.updated_at.strftime("%b %d, %Y - %H:%M:%S"))%></td>
+                <td class="px-6 py-4 text-gray-400"><%= (doc.updated_at.strftime("%b %d, %Y  %H:%M"))%></td>
               </tr>
             <% end %>
           </tbody>
