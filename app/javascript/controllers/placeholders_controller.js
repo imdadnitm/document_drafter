@@ -31,7 +31,7 @@ export default class extends Controller{
 
     async render_placeholders(){
 
-        alert("Template selected. Rendering placeholder fields...")
+        //alert("Template selected. Rendering placeholder fields...")
 
         const template_id = this.selected_templateTarget.value
 
