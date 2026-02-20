@@ -1,11 +1,13 @@
 <% content_for :title, "New generated document" %>
 
-<h1>New  Document</h1>
-
-<%= render "form", generated_document: @generated_document %>
-
-<br>
-
-<div>
-  <%= link_to "Back to generated documents", generated_documents_path %>
-</div>
+<%= turbo_frame_tag "new_document" do %>
+  <div class="animate-in fade-in slide-in-from-top-4 duration-300">
+    <div class="flex items-center justify-between mb-6">
+      <h1 class="text-lg font-bold text-gray-900">Create New Document</h1>
+      <%# Optional: Add a button to close the frame/cancel %>
+      <%= link_to "Cancel", "#", class: "text-xs text-gray-400 hover:text-gray-600", data: { action: "click->placeholders#cancel" } %>
+    </div>
+    
+    <%= render "form", generated_document: @generated_document %>
+  </div>
+<% end %>

@@ -1,39 +1,55 @@
-<%= form_with(model: generated_document, data:{controller:"placeholders"}, html: {multipart: true}) do |form| %>
+<%= form_with(model: generated_document, data:{controller:"placeholders"}, html: {multipart: true, class: "space-y-6"}) do |form| %>
+  
   <% if generated_document.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(generated_document.errors.count, "error") %> prohibited this generated_document from being saved:</h2>
-
-      <ul>
-        <% generated_document.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+    <div class="p-4 mb-4 rounded-lg bg-red-50 border border-red-200">
+      <h2 class="text-sm font-semibold text-red-800">
+        <%= pluralize(generated_document.errors.count, "error") %> prohibited this document from being saved:
+      </h2>
+      <ul class="mt-2 list-disc list-inside text-xs text-red-700">
+        <% generated_document.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+  <div class="space-y-1">
+    <%= form.label :name, class: "block text-sm font-semibold text-gray-700" %>
+    <%= form.text_field :name, 
+        class: "w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm py-2 px-3" %>
   </div>
 
-  <div>
-    <%= form.label :template_id, style: "display: block" %>
-    <%= form.collection_select(:template_id, ::Template.all, :id, :name, {prompt: true}, {data:{placeholders_target:"selected_template", action:"change->placeholders#render_placeholders"}}) %>
+  <div class="space-y-1">
+    <%= form.label :template_id, "Select Template", class: "block text-sm font-semibold text-gray-700" %>
+    <%= form.collection_select(:template_id, ::Template.all, :id, :name, {prompt: "Choose a template..."}, 
+        { 
+          data: { placeholders_target: "selected_template", action: "change->placeholders#render_placeholders" },
+          class: "w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm py-2 px-3 bg-white" 
+        }) %>
   </div>
 
-  <turbo-frame id="placeholder_input_frame">
+  <turbo-frame id="placeholder_input_frame" class="block bg-gray-50 rounded-xl p-4 border-2 border-dashed border-gray-200">
     <% if @generated_document&.template&.placeholders %>
-     <%= render partial: "placeholder_inputs", locals:{template_placeholders: JSON.parse(@generated_document.template.placeholders), input_values: JSON.parse(@generated_document.placeholder_inputs || '{}')} %>
-    <% else %>Placehlder input fields will load here<% end %>
+      <div class="space-y-4">
+        <%= render partial: "placeholder_inputs", locals:{template_placeholders: JSON.parse(@generated_document.template.placeholders), input_values: JSON.parse(@generated_document.placeholder_inputs || '{}')} %>
+      </div>
+    <% else %>
+      <p class="text-xs text-gray-400 italic text-center">Placeholder input fields will load here once a template is selected.</p>
+    <% end %>
   </turbo-frame>
 
   <div>
     <% if @generated_document.file.attached? %>
-     <p> Generated file/document : <%= link_to @generated_document.file.filename, rails_blob_path(@generated_document.file, disposition: "attachment"), target: "_blank" %></p>
+      <div class="flex items-center gap-2 p-3 bg-indigo-50 rounded-lg text-sm text-indigo-700">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13" stroke-width="2"/></svg>
+        <span>Generated: <%= link_to @generated_document.file.filename, rails_blob_path(@generated_document.file, disposition: "attachment"), target: "_blank", class: "underline font-medium hover:text-indigo-900" %></span>
+      </div>
     <% end %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="pt-4 border-t border-gray-100 flex justify-end">
+    <%= form.submit "Generate Document", 
+        class: "inline-flex justify-center py-2 px-6 border border-transparent shadow-sm text-sm font-semibold rounded-xl text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-default transition-all" %>
   </div>
 <% end %>
+

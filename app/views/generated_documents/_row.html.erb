@@ -1,7 +1,9 @@
-<tr id=<%=dom_id(generated_document)%> class="hover:bg-gray-50">
-    <td class="px-4 py-3"><%= generated_document.created_at %></td>
-    <td class="px-4 py-3"><%= generated_document.id%> </td>
-    <td class="px-4 py-3 text-sky-600 hover:underline"><%= link_to generated_document.name, generated_document, data:{turbo_frame: "_top"} %></td>
-    <td class="px-4 py-3"><%= generated_document.template.name%></td>
-    <td class="px-4 py-3"><%= generated_document.updated_at%></td>
-</tr>
+<tr id="<%= dom_id(generated_document) %>" class="hover:bg-indigo-50/30 transition-colors">
+                <td class="px-6 py-4 whitespace-nowrap text-gray-500"><%= generated_document.created_at.strftime("%b %d, %Y") %></td>
+                <td class="px-6 py-4 font-mono text-xs text-gray-400">#<%= generated_document.id %></td>
+                <td class="px-6 py-4">
+                  <%= link_to generated_document.name, generated_document, data: { turbo_frame: "_top" }, class: "font-medium text-indigo-600 hover:text-indigo-900" %>
+                </td>
+                <td class="px-6 py-4 text-gray-600"><%= generated_document.template.name %></td>
+                <td class="px-6 py-4 text-gray-400 text-xs"><%= time_ago_in_words(generated_document.updated_at) %> ago</td>
+              </tr>

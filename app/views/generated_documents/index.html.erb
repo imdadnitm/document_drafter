@@ -1,88 +1,66 @@
-<turbo-frame id="index">
-  
-<% content_for :title, "Generated documents" %>
+<turbo-frame id="index" class="block">
+  <% content_for :title, "Generated documents" %>
 
-<div class="flex px-5 py-5">
+  <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8">
+    
+    <!-- Table Section -->
+    <div class="flex-1 min-w-0 bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+      <div class="p-6 border-b flex justify-between items-center bg-white">
+        <h1 class="text-xl font-bold text-gray-900">Generated Documents</h1>
+        <span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs rounded-full font-medium">
+          <%= @generated_documents.count %> Total
+        </span>
+      </div>
 
-<div class="max-w-6xl mx-auto bg-white rounded-2xl shadow">
+      <div class="overflow-x-auto">
+        <table id="dataTable" class="w-full text-sm text-left border-collapse">
+          <thead class="bg-gray-50 border-b border-gray-200 sticky top-0">
+            <tr class="text-gray-500 uppercase text-[11px] tracking-wider">
+              <th class="px-6 py-3 font-semibold">Created</th>
+              <th class="px-6 py-3 font-semibold">ID</th>
+              <th class="px-6 py-3 font-semibold">Name</th>
+              <th class="px-6 py-3 font-semibold">Template</th>
+              <th class="px-6 py-3 font-semibold">Updated</th>
+            </tr>
+            <tr class="bg-white border-b">
+              <% 5.times do |i| %>
+                <th class="px-4 py-2">
+                  <input data-col="<%= i %>" placeholder="Filter..." 
+                         class="w-full border-gray-200 rounded-md px-2 py-1 text-xs focus:ring-indigo-500 focus:border-indigo-500 filter-input" />
+                </th>
+              <% end %>
+            </tr>
+          </thead>
 
-    <!-- Header -->
-    <div class="p-6 border-b">
-      <h1 class="text-xl font-semibold">Generated Documents</h1>
+          <tbody id="gen_doc_tbody" class="divide-y divide-gray-100">
+            <% @generated_documents.each do |doc| %>
+              <tr id="<%= dom_id(doc) %>" class="hover:bg-indigo-50/30 transition-colors">
+                <td class="px-6 py-4 whitespace-nowrap text-gray-500"><%= doc.created_at.strftime("%b %d, %Y - %H:%M:%S") %></td>
+                <td class="px-6 py-4 font-mono text-xs text-gray-400">#<%= doc.id %></td>
+                <td class="px-6 py-4">
+                  <%= link_to doc.name, doc, data: { turbo_frame: "_top" }, class: "font-medium text-indigo-600 hover:text-indigo-900" %>
+                </td>
+                <td class="px-6 py-4 text-gray-600"><%= doc.template.name %></td>
+                <td class="px-6 py-4 text-gray-400"><%= (doc.updated_at.strftime("%b %d, %Y - %H:%M:%S"))%></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
     </div>
 
-    <!-- Table -->
-    <div class="overflow-auto">
+    <!-- Action Section -->
+    <div class="w-full lg:w-80 shrink-0 space-y-4">
+      <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+        <%= button_to new_generated_document_path, method: :get, 
+            data: { turbo_frame: "new_document" },
+            class: "w-full flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2.5 px-4 rounded-xl transition-all shadow-sm shadow-indigo-200" do %>
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 4v16m8-8H4" stroke-width="2" stroke-linecap="round"/></svg>
+          New Document
+        <% end %>
 
-      <table id="dataTable" class="w-full text-sm text-left">
-
-        <!-- Header row -->
-        <thead class="bg-gray-100 sticky top-0">
-
-          <!-- Column names -->
-          <tr class="text-gray-700">
-            <th class="px-4 py-3">Created at</th>
-            <th class="px-4 py-3">Id</th>
-            <th class="px-4 py-3">Name</th>
-            <th class="px-4 py-3">Template</th>
-            <th class="px-4 py-3">Updated at</th>
-          </tr>
-
-          <!-- Filter inputs -->
-          <tr class="bg-gray-50">
-            <th class="p-2">
-              <input data-col="0"
-                     placeholder="Filter"
-                     class="w-full border rounded px-2 py-1 text-xs filter-input" />
-            </th>
-
-            <th class="p-2">
-              <input data-col="1"
-                     placeholder="Filter"
-                     class="w-full border rounded px-2 py-1 text-xs filter-input" />
-            </th>
-
-            <th class="p-2">
-              <input data-col="2"
-                     placeholder="Filter"
-                     class="w-full border rounded px-2 py-1 text-xs filter-input" />
-            </th>
-
-            <th class="p-2">
-              <input data-col="3"
-                     placeholder="Filter"
-                     class="w-full border rounded px-2 py-1 text-xs filter-input" />
-            </th>
-
-            <th class="p-2">
-              <input data-col="4"
-                     placeholder="Filter"
-                     class="w-full border rounded px-2 py-1 text-xs filter-input" />
-            </th>
-          </tr>
-        </thead>
-
-        <!-- Data -->
-        <tbody id="gen_doc_tbody" class="divide-y">
-
-          <% @generated_documents.each do |generated_document| %>
-
-          <tr id=<%=dom_id(generated_document)%> class="hover:bg-gray-50">
-            <td class="px-4 py-3"><%= generated_document.created_at %></td>
-            <td class="px-4 py-3"><%= generated_document.id%> </td>
-            <td class="px-4 py-3 text-sky-600 hover:underline"><%= link_to generated_document.name, generated_document, data:{turbo_frame: "_top"} %></td>
-            <td class="px-4 py-3"><%= generated_document.template.name%></td>
-            <td class="px-4 py-3"><%= generated_document.updated_at%></td>
-          </tr>
-          <% end %>
-        </tbody>
-      </table>
-
+        <%= turbo_frame_tag "new_document", class: "mt-6 block empty:hidden" %>
+      </div>
     </div>
   </div>
-
-<%= button_to "New generated document", new_generated_document_path, method: :get, class: "px-5 mx-25", data:{turbo_frame: "_top"} %>
-</div>
-
 </turbo-frame>
-
