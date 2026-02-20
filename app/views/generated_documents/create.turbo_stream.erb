@@ -1,3 +1,7 @@
 <%= turbo_stream.append "gen_doc_tbody",
                         partial: "generated_documents/row",
                         locals: {generated_document: @generated_document}%>
+                    
+<%= turbo_stream.replace "new_document" do%>
+<%= turbo_frame_tag "new_document", class: "mt-6 block empty:hidden" %>
+<% end %>
