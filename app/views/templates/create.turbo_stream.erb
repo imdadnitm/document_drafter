@@ -1,0 +1,8 @@
+<%= turbo_stream.append "template_tbody",
+                        partial: "templates/row",
+                        locals: {template: @template} %>
+
+
+<%= turbo_stream.replace "new_template" do %> 
+<%= turbo_frame_tag "new_template", class: "mt-6 block empty:hidden"%>
+<%end%>
