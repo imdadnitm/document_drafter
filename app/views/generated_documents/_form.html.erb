@@ -6,8 +6,8 @@
         <%= pluralize(generated_document.errors.count, "error") %> prohibited this document from being saved:
       </h2>
       <ul class="mt-2 list-disc list-inside text-xs text-red-700">
-        <% generated_document.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+        <% generated_document.errors.each do |error| %>
+          <li><%= error.full_messages %></li>
         <% end %>
       </ul>
     </div>
@@ -24,7 +24,7 @@
     <%= form.collection_select(:template_id, ::Template.all, :id, :name, {prompt: "Choose a template..."}, 
         { 
           data: { placeholders_target: "selected_template", action: "change->placeholders#render_placeholders" },
-          class: "w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm py-2 px-3 bg-white" 
+          class: "w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm py-2 px-3" 
         }) %>
   </div>
 
