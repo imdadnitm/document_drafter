@@ -1,9 +1,11 @@
-<%= form_with(model: template, data:{controller:"placeholders"}, html: {multipart: true}) do |form| %>
+<%= form_with(model: template, data:{controller:"placeholders"}, html: {multipart: true, class: "space-y-6"}) do |form| %>
   <% if template.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(template.errors.count, "error") %> prohibited this template from being saved:</h2>
+    <div class="p-4 mb-4 rounded-lg bg-red-50 border border-red-200">
+      <h2 class="text-sm font-semibold text-red-800">
+        <%= pluralize(template.errors.count, "error") %> prohibited this template from being saved:
+      </h2>
 
-      <ul>
+      <ul class="mt-2 list-disc list-inside text-xs text-red-700">
         <% template.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -11,26 +13,36 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
+  <div class="space-y-1">
+    <%= form.label :name, class: "block text-sm font-semibold text-gray-700" %>
+    <%= form.text_field :name, 
+        class: "w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm py-2 px-3" %>
   </div>
 
-  <div>
-    <%= form.label :placeholders, style: "display: block" %>
-    <%= form.text_field :placeholders, readonly:true, data:{placeholders_target:"placeholder"} %>
+  <div class="space-y-1">
+    <%= form.label :placeholders, class: "block text-sm font-semibold text-gray-700" %>
+    <%= form.text_field :placeholders, readonly:true, data:{placeholders_target:"placeholder"}, class: "w-full rounded-lg border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 text-sm py-2 px-3" %>
   </div>
 
-  <div>
-    <%= form.label :template_document, style: "display: block" %>
-    <%= form.file_field :template_document, data:{placeholders_target:"file", action:"change->placeholders#extract_placeholders"} %>
-    <% if template.template_document.attached? %>
-      <p>Current template document: <%= link_to template.template_document.filename, rails_blob_path(template.template_document, disposition: "attachment"), target: "_blank" %></p>
-    <%end%>
+ <div class="space-y-1">
+  <%= form.label :template_document, class: "block text-sm font-semibold text-gray-700" %>
+  <div class="w-full rounded-lg border border-gray-300 shadow-sm bg-white px-3 py-2 text-sm text-gray-500">
+    <%= form.file_field :template_document,
+        class: "w-full text-sm text-gray-500 file:mr-3 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-indigo-50 file:text-indigo-700 hover:file:bg-indigo-100",
+        data: { placeholders_target: "file" } %>
   </div>
+  <% if template.persisted? && template.template_document.attached? %>
+    <p class="text-xs text-gray-500 mt-1">
+      Current file: <%= link_to template.template_document.filename, rails_blob_path(template.template_document, disposition: "attachment"), target: "_blank", class: "text-indigo-600 hover:text-indigo-800 font-medium underline" %>
+    </p>
+  <% end %>
+</div>
 
 
-  <div>
-    <%= form.submit %>
+  <div class="pt-4 border-t border-gray-100 flex justify-end">
+    <%= form.submit "Submit Template", 
+        class: "inline-flex justify-center py-2 px-6 border border-transparent shadow-sm text-sm font-semibold rounded-xl text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 cursor-default transition-all" %>
   </div>
 <% end %>
+
+
