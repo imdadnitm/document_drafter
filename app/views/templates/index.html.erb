@@ -31,7 +31,7 @@
             </tr>
           </thead>
 
-          <tbody id="gen_doc_tbody" class="divide-y divide-gray-100">
+          <tbody id="template_tbody" class="divide-y divide-gray-100">
             <% @templates.each do |doc| %>
               <tr id="<%= dom_id(doc) %>" class="hover:bg-indigo-50/30 transition-colors">
                 <td class="px-6 py-4 whitespace-nowrap text-gray-500"><%= doc.created_at.strftime("%b %d, %Y  %H:%M") %></td>
