@@ -27,6 +27,7 @@ class TemplatesController < ApplicationController
 
     respond_to do |format|
       if @template.save
+        format.turbo_stream
         format.html { redirect_to @template, notice: "Template was successfully created." }
         format.json { render :show, status: :created, location: @template }
       else
