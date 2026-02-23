@@ -1,12 +1,22 @@
-<% content_for :title, "Editing template" %>
+<turbo-frame id="template_document">
+  <% content_for :title, "Editing #{@template.name}" %>
 
-<h1>Editing template</h1>
+  <div class="max-w-4xl mr-auto bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden animate-in fade-in duration-300">
+    
+    <!-- Header -->
+    <div class="px-8 py-6 border-b border-gray-100 flex items-center justify-between bg-indigo-50/30">
+      <div>
+        <h1 class="text-xl font-bold text-gray-900">Edit Template</h1>
+        <p class="text-xs text-indigo-600 font-medium mt-1">You are currently modifying this record</p>
+      </div>
+      
+      <%= button_to "Discard Changes", @template, 
+          method: :get,
+          class: "text-sm font-medium text-gray-400 hover:text-gray-600 transition-colors cursor-default" %>
+    </div>
 
-<%= render "form", template: @template %>
-
-<br>
-
-<div>
-  <%= link_to "Show this template", @template %> |
-  <%= link_to "Back to templates", templates_path %>
-</div>
+    <div class="p-8">
+      <%= render "form", template: @template %>
+    </div>
+  </div>
+</turbo-frame>
