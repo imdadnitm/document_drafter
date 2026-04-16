@@ -8,11 +8,11 @@ export default class extends Controller{
 
         this.generated_doc_itemTarget.classList.remove("bg-indigo-50","text-indigo-700")
         this.template_itemTarget.classList.remove("bg-indigo-50","text-indigo-700")
-        this.user_accountTarget.classList.remove("bg-indigo-50","text-indigo-700")
+        //this.user_accountTarget.classList.remove("bg-indigo-50","text-indigo-700")
 
         this.generated_doc_itemTarget.classList.add("text-gray-500","hover:bg-gray-100", "hover:text-gray-700")
         this.template_itemTarget.classList.add("text-gray-500","hover:bg-gray-100", "hover:text-gray-700")
-        this.user_accountTarget.classList.add("text-gray-500","hover:bg-gray-100", "hover:text-gray-700")
+        //this.user_accountTarget.classList.add("text-gray-500","hover:bg-gray-100", "hover:text-gray-700")
         
 
         event.currentTarget.classList.remove("text-gray-500","hover:bg-gray-100", "hover:text-gray-700")

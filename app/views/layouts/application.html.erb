@@ -32,16 +32,17 @@
         </div>
 
         <nav class="flex-1 p-4 space-y-1 overflow-y-auto", data-controller="sidebar">
-          <%= link_to "Generated Documents", generated_documents_path, data:{turbo_frame:"index", sidebar_target:"generated_doc_item", action:"click->sidebar#nav_item_css_change"}, class: "block rounded-lg px-4 py-2 text-sm font-medium bg-indigo-50 text-indigo-700" %>
-          <%= link_to "Templates", templates_path, data:{turbo_frame:"index", sidebar_target:"template_item", action:"click->sidebar#nav_item_css_change"}, class: "block rounded-lg px-4 py-2 text-sm font-medium text-gray-500 hover:bg-gray-100 hover:text-gray-700" %>
+          <%= link_to "Generated Documents", generated_documents_path, data:{turbo_frame:"index", sidebar_target:"generated_doc_item", action:"click->sidebar#nav_item_css_change"}, class: "block rounded-lg px-4 py-2 text-sm font-medium "+ highlighted_class("/generated_documents") %>
+          <%= link_to "Templates", templates_path, data:{turbo_frame:"index", sidebar_target:"template_item", action:"click->sidebar#nav_item_css_change"}, class: "block rounded-lg px-4 py-2 text-sm font-medium"+ highlighted_class("/templates") %>
           
           <details class="group mt-4">
-             <summary class="flex cursor-pointer items-center justify-between px-4 py-2 text-xs font-semibold text-gray-400 uppercase list-none">
+             <summary class="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-sm font-medium list-none">
                Account
                <svg class="w-4 h-4 transition-transform group-open:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M19 9l-7 7-7-7" stroke-width="2"/></svg>
              </summary>
              <div class="mt-2 space-y-1 px-2">
-                 <%= link_to "Edit Profile", edit_user_registration_path, data:{sidebar_target:"user_account", action:"click->sidebar#nav_item_css_change"}, class: "block rounded-lg px-4 py-2 text-sm text-gray-600 hover:bg-gray-100" %>
+                 <!--<%= link_to "Edit Profile", edit_user_registration_path, data:{sidebar_target:"user_account", action:"click->sidebar#nav_item_css_change"}, class: "block rounded-lg px-4 py-2 text-sm text-gray-600 hover:bg-gray-100" %>-->
+                 <%= link_to "Edit Profile", edit_user_registration_path, class: "block rounded-lg px-4 py-2 text-sm text-gray-600 hover:bg-gray-100" %>
                  <%= link_to "Logout", destroy_user_session_path, data: { turbo_method: :delete }, class: "block rounded-lg px-4 py-2 text-sm text-red-600 hover:bg-red-50" %>
              </div>
           </details>
