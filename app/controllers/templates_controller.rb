@@ -5,7 +5,7 @@ class TemplatesController < ApplicationController
 
   # GET /templates or /templates.json
   def index
-    @pagy, @templates = pagy(Template.all.for_user(current_user))
+    @pagy, @templates = pagy(:offset, Template.all.for_user(current_user))
   end
 
   # GET /templates/1 or /templates/1.json

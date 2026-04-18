@@ -3,48 +3,53 @@
   <div class="max-w-7xl mx-auto flex flex-col lg:flex-row gap-8">
     
     <!-- Table Section -->
-    <div class="flex-1 min-w-0 bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
-      <div class="p-6 border-b flex justify-between items-center bg-white">
-        <h1 class="text-xl font-bold text-gray-900">Templates</h1>
-        <span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs rounded-full font-medium">
-          <%= @templates.count %> Total
-        </span>
-      </div>
-
-      <div class="overflow-x-auto">
-        <table id="dataTable" class="w-full text-sm text-left border-collapse">
-          <thead class="bg-gray-50 border-b border-gray-200 sticky top-0">
-            <tr class="text-gray-500 uppercase text-[11px] tracking-wider">
-              <th class="px-6 py-3 font-semibold">Created</th>
-              <th class="px-6 py-3 font-semibold">ID</th>
-              <th class="px-6 py-3 font-semibold">Name</th>
-              <th class="px-6 py-3 font-semibold">Attachment</th>
-              <th class="px-6 py-3 font-semibold">Updated</th>
-            </tr>
-            <tr class="bg-white border-b">
-              <% 5.times do |i| %>
-                <th class="px-4 py-2">
-                  <input data-col="<%= i %>" placeholder="Filter..." 
-                         class="w-full border-gray-200 rounded-md px-2 py-1 text-xs focus:ring-indigo-500 focus:border-indigo-500 filter-input" />
-                </th>
-              <% end %>
-            </tr>
-          </thead>
-
-          <tbody id="template_tbody" class="divide-y divide-gray-100">
-            <% @templates.each do |doc| %>
-              <tr id="<%= dom_id(doc) %>" class="hover:bg-indigo-50/30 transition-colors">
-                <td class="px-6 py-4 whitespace-nowrap text-gray-500"><%= doc.created_at.strftime("%b %d, %Y  %H:%M") %></td>
-                <td class="px-6 py-4 font-mono text-xs text-gray-400">#<%= doc.id %></td>
-                <td class="px-6 py-4">
-                  <%= link_to doc.name, doc, data: { turbo_frame: "_top" }, class: "font-medium text-indigo-600 hover:text-indigo-900" %>
-                </td>
-                <td class="px-6 py-4"><%= link_to doc.template_document.filename, rails_blob_path(doc.template_document, disposition: "attachment"), class:"font-medium text-indigo-600 hover:text-indigo-900", target:"_blank" %></td>
-                <td class="px-6 py-4 text-gray-400"><%= (doc.updated_at.strftime("%b %d, %Y  %H:%M"))%></td>
+    <div>
+      <div class="flex-1 min-w-0 bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden">
+        <div class="p-6 border-b flex justify-between items-center bg-white">
+          <h1 class="text-xl font-bold text-gray-900">Templates</h1>
+          <span class="px-3 py-1 bg-gray-100 text-gray-600 text-xs rounded-full font-medium">
+            <%= @templates.count %> Total
+          </span>
+        </div>
+  
+        <div class="overflow-x-auto">
+          <table id="dataTable" class="w-full text-sm text-left border-collapse">
+            <thead class="bg-gray-50 border-b border-gray-200 sticky top-0">
+              <tr class="text-gray-500 uppercase text-[11px] tracking-wider">
+                <th class="px-6 py-3 font-semibold">Created</th>
+                <th class="px-6 py-3 font-semibold">ID</th>
+                <th class="px-6 py-3 font-semibold">Name</th>
+                <th class="px-6 py-3 font-semibold">Attachment</th>
+                <th class="px-6 py-3 font-semibold">Updated</th>
               </tr>
-            <% end %>
-          </tbody>
-        </table>
+              <tr class="bg-white border-b">
+                <% 5.times do |i| %>
+                  <th class="px-4 py-2">
+                    <input data-col="<%= i %>" placeholder="Filter..." 
+                           class="w-full border-gray-200 rounded-md px-2 py-1 text-xs focus:ring-indigo-500 focus:border-indigo-500 filter-input" />
+                  </th>
+                <% end %>
+              </tr>
+            </thead>
+  
+            <tbody id="template_tbody" class="divide-y divide-gray-100">
+              <% @templates.each do |doc| %>
+                <tr id="<%= dom_id(doc) %>" class="hover:bg-indigo-50/30 transition-colors">
+                  <td class="px-6 py-4 whitespace-nowrap text-gray-500"><%= doc.created_at.strftime("%b %d, %Y  %H:%M") %></td>
+                  <td class="px-6 py-4 font-mono text-xs text-gray-400">#<%= doc.id %></td>
+                  <td class="px-6 py-4">
+                    <%= link_to doc.name, doc, data: { turbo_frame: "_top" }, class: "font-medium text-indigo-600 hover:text-indigo-900" %>
+                  </td>
+                  <td class="px-6 py-4"><%= link_to doc.template_document.filename, rails_blob_path(doc.template_document, disposition: "attachment"), class:"font-medium text-indigo-600 hover:text-indigo-900", target:"_blank" %></td>
+                  <td class="px-6 py-4 text-gray-400"><%= (doc.updated_at.strftime("%b %d, %Y  %H:%M"))%></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class= "flex justify-center mt-4">
+         <%== @pagy.series_nav %>
       </div>
     </div>
 
