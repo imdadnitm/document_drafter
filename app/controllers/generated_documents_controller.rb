@@ -1,9 +1,10 @@
 class GeneratedDocumentsController < ApplicationController
+  include Pagy::Method
   before_action :set_generated_document, only: %i[ show edit update destroy ]
 
   # GET /generated_documents or /generated_documents.json
   def index
-    @generated_documents = GeneratedDocument.all.for_user(current_user)
+    @pagy, @generated_documents = pagy(:offset, GeneratedDocument.all.for_user(current_user))
   end
 
   # GET /generated_documents/1 or /generated_documents/1.json

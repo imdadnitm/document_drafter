@@ -1,10 +1,11 @@
 class TemplatesController < ApplicationController
   #require 'docx'
+  include Pagy::Method
   before_action :set_template, only: %i[ show edit update destroy ]
 
   # GET /templates or /templates.json
   def index
-    @templates = Template.all.for_user(current_user)
+    @pagy, @templates = pagy(Template.all.for_user(current_user))
   end
 
   # GET /templates/1 or /templates/1.json

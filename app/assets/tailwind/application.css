@@ -4,3 +4,5 @@
     @apply border rounded px-2 py-1;
   }
 }
+
+@import "./pagy-tailwind.css";
