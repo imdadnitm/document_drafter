@@ -69,3 +69,5 @@ gem "docx", "~> 0.10.0"
 gem "sidekiq"
 
 gem "tailwindcss-rails", "~> 4.4"
+
+gem 'pagy', '~> 43.5'
