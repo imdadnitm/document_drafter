@@ -4,7 +4,7 @@ class GeneratedDocumentsController < ApplicationController
 
   # GET /generated_documents or /generated_documents.json
   def index
-    @pagy, @generated_documents = pagy(:offset, GeneratedDocument.all.for_user(current_user))
+    @pagy, @generated_documents = pagy(:offset, GeneratedDocument.all.for_user(current_user).search_filter(params.slice(:name, :id, :created_at, :updated_at, :template_id)))
   end
 
   # GET /generated_documents/1 or /generated_documents/1.json

@@ -4,7 +4,17 @@ class GeneratedDocument < ApplicationRecord
   has_one_attached :file
   belongs_to :user
 
-  scope :for_user, -> (user) {where("user_id = ?", user.id)}
+  scope :for_user, -> (user) {where("user_id = ?", user.id).order(:created_at => :desc)}
+  scope :search_filter, -> (filters) {
+  scope =  all 
+  scope = scope.where("lower(name) LIKE ?", "%#{filters[:name].downcase}%") if filters[:name].present?
+  scope = scope.where("cast(id as text) = ?", filters[:id]) if filters[:id].present?
+  scope = scope.where("date(created_at) = ?", filters[:created_at]) if filters[:created_at].present?
+  scope = scope.where("date(updated_at) = ?", filters[:updated_at]) if filters[:updated_at].present?
+  scope = scope.joins(:template).where("lower(templates.name) LIKE ?", "%#{filters[:template_id].downcase}%") if filters[:template_id].present?
+  scope
+}
+
 
   after_commit :trigger_generate_docx_job, on: [:create]
 
