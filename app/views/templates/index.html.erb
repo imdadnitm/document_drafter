@@ -13,6 +13,7 @@
         </div>
   
         <div class="overflow-x-auto">
+          <%= form_with url: templates_path, method: :get, data: {turbo_frame: "index", controller: "filter"}, class: "contents", id: "filter-form" do |f| %>
           <table id="dataTable" class="w-full text-sm text-left border-collapse">
             <thead class="bg-gray-50 border-b border-gray-200 sticky top-0">
               <tr class="text-gray-500 uppercase text-[11px] tracking-wider">
@@ -23,12 +24,22 @@
                 <th class="px-6 py-3 font-semibold">Updated</th>
               </tr>
               <tr class="bg-white border-b">
-                <% 5.times do |i| %>
+                
                   <th class="px-4 py-2">
-                    <input data-col="<%= i %>" placeholder="Filter..." 
-                           class="w-full border-gray-200 rounded-md px-2 py-1 text-xs focus:ring-indigo-500 focus:border-indigo-500 filter-input" />
+                    <%= f.date_field :created_at, placeholder: "Filter...", value: params[:created_at], data: {action: "change->filter#submit_on_date_change"}, class: "w-full border-gray-200 rounded-md px-2 py-1 text-xs focus:ring-indigo-500 focus:border-indigo-500 filter-input" %>
                   </th>
-                <% end %>
+                  <th class="px-4 py-2">
+                    <%= f.text_field :id, placeholder: "Filter...", value: params[:id], data: {action: "change->filter#submitWithDelay"}, class: "w-full border-gray-200 rounded-md px-2 py-1 text-xs focus:ring-indigo-500 focus:border-indigo-500 filter-input" %>
+                  </th>
+                  <th class="px-4 py-2">
+                    <%= f.text_field :name, placeholder: "Filter...", value: params[:name], data: {action: "change->filter#submitWithDelay"}, class: "w-full border-gray-200 rounded-md px-2 py-1 text-xs focus:ring-indigo-500 focus:border-indigo-500 filter-input" %>
+                  </th>
+                  <th class="px-4 py-2">
+                    <%= f.text_field :attachment_name, placeholder: "Filter...", value: params[:attachment_name], data: {action: "change->filter#submitWithDelay"}, class: "w-full border-gray-200 rounded-md px-2 py-1 text-xs focus:ring-indigo-500 focus:border-indigo-500 filter-input" %>
+                  </th>
+                  <th class="px-4 py-2">
+                    <%= f.date_field :updated_at, placeholder: "Filter...", value: params[:updated_at], data: {action: "change->filter#submit_on_date_change"}, class: "w-full border-gray-200 rounded-md px-2 py-1 text-xs focus:ring-indigo-500 focus:border-indigo-500 filter-input" %>
+                  </th>
               </tr>
             </thead>
   
@@ -46,6 +57,7 @@
               <% end %>
             </tbody>
           </table>
+          <% end %>
         </div>
       </div>
       <div class= "flex justify-center mt-4">
